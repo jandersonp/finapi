@@ -14,6 +14,7 @@ app.use(express.json())
 
 const customers = []
 
+/** Create account */
 app.post('/account', (request, response) => {
   const { cpf, name } = request.body
 
@@ -31,6 +32,15 @@ app.post('/account', (request, response) => {
   })
 
   return response.status(201).send()
+})
+
+/** Listing bank statement  */
+app.get('/statement/:cpf', (request, response) => {
+  const { cpf } = request.params
+
+  const customer = customers.find(customer => customer.cpf === cpf)
+
+  return response.json(customer.statement)
 })
 
 app.listen(3333, () => {
