@@ -31,7 +31,11 @@ function verifyExistsAccountCPF(request, response, next) {
 
 function getBalance(statement) {
   const balance = statement.reduce((acc, operation) => {
+<<<<<<< HEAD
     if (operation.type === 'credit') {
+=======
+    if(operation.type === 'credit') {
+>>>>>>> ee0787bab40bd6fed357ac41a15de0555596cc2d
       return acc + operation.amount
     } else {
       return acc - operation.amount
@@ -72,12 +76,12 @@ app.get('/statement', verifyExistsAccountCPF, (request, response) => {
 app.post('/deposit', verifyExistsAccountCPF, (request, response) => {
   const { description, amount } = request.body
 
-  const { customer } = request
+  const { customer } = request 
 
   const statementOperation = {
     description,
     amount,
-    created_at: new Date(),
+    created_at: new Date(), 
     type: 'credit'
   }
 
@@ -86,7 +90,11 @@ app.post('/deposit', verifyExistsAccountCPF, (request, response) => {
   return response.status(201).send()
 })
 
+<<<<<<< HEAD
 /** Withdraw route (Saque bancário) */
+=======
+/**Saque (Withdraw) */
+>>>>>>> ee0787bab40bd6fed357ac41a15de0555596cc2d
 app.post('/withdraw', verifyExistsAccountCPF, (request, response) => {
   const { amount } = request.body
 
@@ -95,7 +103,11 @@ app.post('/withdraw', verifyExistsAccountCPF, (request, response) => {
   const balance = getBalance(customer.statement)
 
   if (balance < amount) {
+<<<<<<< HEAD
     return response.status(400).json({ error: 'Insufficient funds!' })
+=======
+    return response.status(400).json({ error: 'Insufficient founds!' })
+>>>>>>> ee0787bab40bd6fed357ac41a15de0555596cc2d
   }
 
   const statementOperation = {
@@ -107,6 +119,7 @@ app.post('/withdraw', verifyExistsAccountCPF, (request, response) => {
   customer.statement.push(statementOperation)
 
   return response.status(201).send()
+<<<<<<< HEAD
 })
 
 app.get('/statement/date', verifyExistsAccountCPF, (request, response) => {
@@ -123,6 +136,9 @@ app.get('/statement/date', verifyExistsAccountCPF, (request, response) => {
   )
 
   return response.json(statement)
+=======
+
+>>>>>>> ee0787bab40bd6fed357ac41a15de0555596cc2d
 })
 
 app.listen(3333, () => {
